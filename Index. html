@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>తెలంగాణ హోమ్ ఫుడ్స్ & పచ్చళ్లు</title>
+  <style>
+    :root { --primary: #c0392b; --secondary: #d35400; --dark: #2c3e50; --wa-green: #25D366; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+    body { background-color: #f9f6f0; color: #333; padding-bottom: 90px; }
+    header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; text-align: center; padding: 24px 16px; }
+    header h1 { font-size: 1.6rem; margin-bottom: 6px; }
+    .tagline-banner { background-color: #f39c12; color: #fff; text-align: center; font-weight: bold; padding: 8px 12px; font-size: 0.9rem; }
+    .custom-notice { background: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 10px 14px; margin: 12px auto; max-width: 900px; border-radius: 8px; text-align: center; font-size: 0.88rem; }
+    .container { max-width: 900px; margin: 0 auto; padding: 12px; }
+    .filter-tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+    .tab-btn { border: none; background: #fff; padding: 6px 14px; border-radius: 20px; font-weight: bold; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
+    .tab-btn.active { background: var(--primary); color: #fff; }
+    .section-title { font-size: 1.2rem; color: var(--primary); margin: 16px 0 10px 4px; border-left: 4px solid var(--secondary); padding-left: 8px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .card { background: white; border-radius: 10px; padding: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #eee; }
+    .card-title { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .card-qty { font-size: 0.8rem; color: #777; margin-bottom: 8px; }
+    .price-tag { font-size: 1.15rem; font-weight: bold; color: var(--secondary); margin-bottom: 10px; }
+    .add-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 8px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+    .cart-bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #ddd; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -3px 8px rgba(0,0,0,0.1); z-index: 100; }
+    .cart-info { font-size: 0.95rem; font-weight: bold; }
+    .checkout-btn { background: var(--wa-green); color: white; border: none; padding: 9px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 200; padding: 16px; }
+    .modal-content { background: white; padding: 20px; border-radius: 12px; width: 100%; max-width: 400px; max-height: 90vh; overflow-y: auto; }
+    .modal h3 { margin-bottom: 10px; color: var(--primary); font-size: 1.1rem; }
+    .modal input, .modal textarea { width: 100%; padding: 9px; margin-bottom: 8px; border: 1px solid #ccc; border-radius: 6px; }
+    .upi-box { background: #f0f4f8; padding: 10px; border-radius: 8px; margin-bottom: 10px; text-align: center; }
+    .upi-apps { display: flex; justify-content: space-around; margin-top: 6px; }
+    .upi-btn { background: #fff; border: 1px solid #ccc; padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; text-decoration: none; color: #333; }
+    .btn-group { display: flex; justify-content: flex-end; gap: 8px; margin-top: 10px; }
+    .cancel-btn { background: #bbb; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; color: white; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>తెలంగాణ హోమ్ ఫుడ్స్ & పచ్చళ్లు</h1>
+    <p>సంప్రదాయ రుచులు • స్వచ్ఛమైన నాణ్యత</p>
+  </header>
+
+  <div class="tagline-banner">
+    ✨ నాణ్యత మెయింటైన్ చేస్తూ అతి తక్కువ ధరలో మా వద్ద లభించును! ✨
+  </div>
+
+  <div class="container">
+    <div class="custom-notice">
+      📢 <strong>ప్రత్యేక గమనిక:</strong> గారెలు, అప్పాలు, మురుకులు, లడ్డూలు, సకినాలు, కారపూస వంటి తెలంగాణ సంప్రదాయ పిండివంటలు ఏదైనా మీరు ఆర్డర్ ఇస్తేనే ఫ్రెష్‌గా చేసి పంపుతాము!
+    </div>
+
+    <div class="filter-tabs">
+      <button class="tab-btn active" onclick="filterItems('all')">అన్నీ (All)</button>
+      <button class="tab-btn" onclick="filterItems('nonveg')">నాన్-వెజ్ పచ్చళ్లు</button>
+      <button class="tab-btn" onclick="filterItems('veg')">వెజ్ పచ్చళ్లు</button>
+      <button class="tab-btn" onclick="filterItems('snacks')">పిండివంటలు (Snacks)</button>
+    </div>
+
+    <!-- Non-Veg Pickles -->
+    <div class="category-block" data-cat="nonveg">
+      <div class="section-title">🍗 నాన్-వెజ్ పచ్చళ్లు</div>
+      <div class="grid">
+        <div class="card">
+          <div class="card-title">Chicken Bone Pickle</div>
+          <div class="card-qty">పరిమాణం: 500 గ్రాములు</div>
+          <div class="price-tag">₹429</div>
+          <button class="add-btn" onclick="addToCart('Chicken Bone Pickle (500g)', 429)">కార్ట్‌కి జోడించు</button>
+        </div>
+        <div class="card">
+          <div class="card-title">Chicken Boneless Pickle</div>
+          <div class="card-qty">పరిమాణం: 500 గ్రాములు</div>
+          <div class="price-tag">₹429</div>
+          <button class="add-btn" onclick="addToCart('Chicken Boneless Pickle (500g)', 429)">కార్ట్‌కి జోడించు</button>
+        </div>
+        <div class="card">
+          <div class="card-title">Chicken Bone Pickle</div>
+          <div class="card-qty">పరిమాణం: 1 కిలో (1 Kg)</div>
+          <div class="price-tag">₹869</div>
+          <button class="add-btn" onclick="addToCart('Chicken Bone Pickle (1 Kg)', 869)">కార్ట్‌కి జోడించు</button>
+        </div>
+        <div class="card">
+          <div class="card-title">Chicken Boneless Pickle</div>
+          <div class="card-qty">పరిమాణం: 1 కిలో (1 Kg)</div>
+          <div class="price-tag">₹869</div>
+          <button class="add-btn" onclick="addToCart('Chicken Boneless Pickle (1 Kg)', 869)">కార్ట్‌కి జోడించు</button>
+        </div>
+        <div class="card">
+          <div class="card-title">Mutton Pickle</div>
+          <div class="card-qty">పరిమాణం: 500 గ్రాములు</div>
+          <div class="price-tag">₹850</div>
+          <button class="add-btn" onclick="addToCart('Mutton Pickle (500g)', 850)">కార్ట్‌కి జోడించు</button>
+        </div>
+        <div class="card">
+          <div class="card-title">Mutton Pickle</div>
+          <div class="card-qty">పరిమాణం: 1 కిలో (1 Kg)</div>
+          <div class="price-tag">₹1650</div>
+          <button class="add-btn" onclick="addToCart('Mutton Pickle (1 Kg)', 1650)">కార్ట్‌కి జోడించు</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Veg Pickles -->
+    <div class="category-block" data-cat="veg">
+      <div class="section-title">🥭 శాకాహార పచ్చళ్లు</div>
+      <div class="grid">
+        <div class="card">
+          <div class="card-title">Mango Pickle (మామిడి)</div>
+          <div class="card-qty">పరిమాణం: 500 గ్రాములు</div>
+          <div class="price-tag">₹150</div>
+          <button class="add-btn" onclick="addToCart('Mango Pickle (500g)', 150)">కార్ట్‌కి జోడించు</button>
+        </div>
+        <div class="card">
+          <div class="card-title">Mango Pickle (మామిడి)</div>
+          <div class="card-qty">పరిమాణం: 1 కిలో (1 Kg)</div>
+          <div class="price-tag">₹300</div>
+          <button class="add-btn" onclick="addToCart('Mango Pickle (1 Kg)', 300)">కార్ట్‌కి జోడించు</button>
+        </div>
+        <div class="card">
+          <div class="card-title">Usiri Pickle (ఉసిరి)</div>
+          <div class="card-qty">పరిమాణం: 500 గ్రాములు</div>
+          <div class="price-tag">₹150</div>
+          <button class="add-btn" onclick="addToCart('Usiri Pickle (500g)', 150)">కార్ట్‌కి జోడించు</button>
+        </div>
+        <div class="card">
+          <div class="card-title">Usiri Pickle (ఉసిరి)</div>
+          <div class="card-qty">పరిమాణం: 1 కిలో (1 Kg)</div>
+          <div class="price-tag">₹300</div>
+          <button class="add-btn" onclick="addToCart('Usiri Pickle (1 Kg)', 300)">కార్ట్‌కి జోడించు</button>
+        </div>
+        <div class="card">
+          <div class="card-title">Lemon Pickle (నిమ్మకాయ)</div>
+          <div class="card-qty">పరిమాణం: 500 గ్రాములు</div>
+          <div class="price-tag">₹150</div>
+          <button class="add-btn" onclick="addToCart('Lemon Pickle (500g)', 150)">కార్ట్‌కి జోడించు</button>
+        </div>
+        <div class="card">
+          <div class="card-title">Lemon Pickle (నిమ్మకాయ)</div>
+          <div class="card-qty">పరిమాణం: 1 కిలో (1 Kg)</div>
+          <div class="price-tag">₹300</div>
+          <button class="add-btn" onclick="addToCart('Lemon Pickle (1 Kg)', 300)">కార్ట్‌కి జోడించు</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Snacks -->
+    <div class="category-block" data-cat="snacks">
+      <div class="section-title">🥨 తెలంగాణ పిండివంటలు (Fresh Order)</div>
+      <div class="grid">
+        <div class="card">
+          <div class="card-title">సకినాలు (Shakinalu)</div>
+          <div class="card-qty">ఆర్డర్ పై ఫ్రెష్ ప్రిపరేషన్</div>
+          <div class="price-tag" style="font-size: 0.95rem; color: #27ae60;">ఫ్రెష్ ప్రిపరేషన్</div>
+          <button class="add-btn" onclick="addToCart('Shakinalu (Custom)', 0)">ఆర్డర్ లో చేర్చు</button>
+        </div>
+        <div class="card">
+          <div class="card-title">గారెలు (Garelu)</div>
+          <div class="card-qty">ఆర్డర్ పై ఫ్రెష్ ప్రిపరేషన్</div>
+          <div class="price-tag" style="font-size: 0.95rem; color: #27ae60;">ఫ్రెష్ ప్రిపరేషన్</div>
+          <button class="add-btn" onclick="addToCart('Garelu (Custom)', 0)">ఆర్డర్ లో చేర్చు</button>
+        </div>
+        <div class="card">
+          <div class="card-title">అప్పాలు (Appalu)</div>
+          <div class="card-qty">ఆర్డర్ పై ఫ్రెష్ ప్రిపరేషన్</div>
+          <div class="price-tag" style="font-size: 0.95rem; color: #27ae60;">ఫ్రెష్ ప్రిపరేషన్</div>
+          <button class="add-btn" onclick="addToCart('Appalu (Custom)', 0)">ఆర్డర్ లో చేర్చు</button>
+        </div>
+        <div class="card">
+          <div class="card-title">మురుకులు (Murukulu)</div>
+          <div class="card-qty">ఆర్డర్ పై ఫ్రెష్ ప్రిపరేషన్</div>
+          <div class="price-tag" style="font-size: 0.95rem; color: #27ae60;">ఫ్రెష్ ప్రిపరేషన్</div>
+          <button class="add-btn" onclick="addToCart('Murukulu (Custom)', 0)">ఆర్డర్ లో చేర్చు</button>
+        </div>
+        <div class="card">
+          <div class="card-title">కారపూస (Karapusa)</div>
+          <div class="card-qty">ఆర్డర్ పై ఫ్రెష్ ప్రిపరేషన్</div>
+          <div class="price-tag" style="font-size: 0.95rem; color: #27ae60;">ఫ్రెష్ ప్రిపరేషన్</div>
+          <button class="add-btn" onclick="addToCart('Karapusa (Custom)', 0)">ఆర్డర్ లో చేర్చు</button>
+        </div>
+        <div class="card">
+          <div class="card-title">లడ్డూలు (Laddulu)</div>
+          <div class="card-qty">ఆర్డర్ పై ఫ్రెష్ ప్రిపరేషన్</div>
+          <div class="price-tag" style="font-size: 0.95rem; color: #27ae60;">ఫ్రెష్ ప్రిపరేషన్</div>
+          <button class="add-btn" onclick="addToCart('Laddulu (Custom)', 0)">ఆర్డర్ లో చేర్చు</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cart-bottom-bar">
+    <div class="cart-info">
+      కార్ట్: <span id="cartCount">0</span> వస్తువులు | బిల్లు: ₹<span id="cartTotal">0</span>
+    </div>
+    <button class="checkout-btn" onclick="openCheckout()">పేమెంట్ & ఆర్డర్</button>
+  </div>
+
+  <div class="modal" id="checkoutModal">
+    <div class="modal-content">
+      <h3>చెల్లింపు & ఆర్డర్ వివరాలు</h3>
+      <div class="upi-box">
+        <p style="font-size: 0.85rem; font-weight: bold;">మొత్తం చెల్లించాల్సింది: ₹<span id="modalTotal">0</span></p>
+        <p style="font-size: 0.75rem; color: #666; margin: 4px 0;">కింది UPI యాప్స్ ద్వారా పే చేయండి:</p>
+        <div class="upi-apps">
+          <a id="phonepeBtn" href="#" class="upi-btn" target="_blank">PhonePe</a>
+          <a id="gpayBtn" href="#" class="upi-btn" target="_blank">GPay</a>
+          <a id="paytmBtn" href="#" class="upi-btn" target="_blank">Paytm</a>
+        </div>
+        <p style="font-size: 0.75rem; color: #777; margin-top: 6px;">UPI ID: <strong>7095101860@ybl</strong></p>
+      </div>
+
+      <input type="text" id="custName" placeholder="మీ పూర్తి పేరు (Name)*" required>
+      <input type="tel" id="custPhone" placeholder="మొబైల్ నంబర్ (Phone Number)*" required>
+      <textarea id="custAddr" rows="2" placeholder="పూర్తి అడ్రస్ (Address)*" required></textarea>
+      <input type="text" id="custUtr" placeholder="UPI UTR / Trans ID (12 అంకెలు)*" required>
+      
+      <div class="btn-group">
+        <button class="cancel-btn" onclick="closeCheckout()">రద్దు</button>
+        <button class="checkout-btn" onclick="submitToWhatsApp()">WhatsApp లో కన్ఫర్మ్ చేయి</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ownerNumber = "917095101860";
+    const ownerUpi = "7095101860@ybl";
+    let cart = [];
+
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      updateCartBar();
+      alert(name + " కార్ట్‌కి జోడించబడింది!");
+    }
+
+    function updateCartBar() {
+      document.getElementById('cartCount').innerText = cart.length;
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      document.getElementById('cartTotal').innerText = total;
+    }
+
+    function filterItems(cat) {
+      const tabs = document.querySelectorAll('.tab-btn');
+      tabs.forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const blocks = document.querySelectorAll('.category-block');
+      blocks.forEach(b => {
+        b.style.display = (cat === 'all' || b.getAttribute('data-cat') === cat) ? 'block' : 'none';
+      });
+    }
+
+    function openCheckout() {
+      if (cart.length === 0) {
+        alert("దయచేసి ముందుగా ఏదైనా వస్తువును కార్ట్‌లోకి ఎంచుకోండి!");
+        return;
+      }
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      document.getElementById('modalTotal').innerText = total;
+
+      const upiLink = `upi://pay?pa=${ownerUpi}&pn=TelanganaHomeFoods&am=${total}&cu=INR`;
+      document.getElementById('phonepeBtn').href = upiLink;
+      document.getElementById('gpayBtn').href = upiLink;
+      document.getElementById('paytmBtn').href = upiLink;
+
+      document.getElementById('checkoutModal').style.display = 'flex';
+    }
+
+    function closeCheckout() {
+      document.getElementById('checkoutModal').style.display = 'none';
+    }
+
+    function submitToWhatsApp() {
+      const name = document.getElementById('custName').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
+      const addr = document.getElementById('custAddr').value.trim();
+      const utr = document.getElementById('custUtr').value.trim();
+
+      if (!name || !phone || !addr) {
+        alert("దయచేసి పేరు, ఫోన్ నంబర్ మరియు అడ్రస్ పూర్తిగా నమోదు చేయండి.");
+        return;
+      }
+      if (utr.length < 6) {
+        alert("దయచేసి పేమెంట్ చేసిన Transaction ID (UTR Number) నమోదు చేయండి.");
+        return;
+      }
+
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      let itemsList = "";
+      cart.forEach((item, i) => {
+        itemsList += `${i + 1}. ${item.name} ${item.price > 0 ? '- ₹' + item.price : '(ఫ్రెష్ ఆర్డర్)'}\n`;
+      });
+
+      let msg = `✅ *కొత్త ఆర్డర్ (పేమెంట్ పూర్తయింది)*\n\n` +
+                `👤 *కస్టమర్ పేరు:* ${name}\n` +
+                `📞 *ఫోన్ నంబర్:* ${phone}\n` +
+                `🏠 *అడ్రస్:* ${addr}\n` +
+                `💳 *UPI UTR / Trans ID:* ${utr}\n` +
+                `💰 *మొత్తం బిల్లు:* ₹${total}\n\n` +
+                `📦 *ఆర్డర్ చేసిన వస్తువులు:*\n${itemsList}\n` +
+                `దయచేసి పేమెంట్ చెక్ చేసి ఆర్డర్ పంపగలరు.`;
+
+      window.open(`https://wa.me/${ownerNumber}?text=${encodeURIComponent(msg)}`, '_blank');
+
+      cart = [];
+      updateCartBar();
+      closeCheckout();
+    }
+  </script>
+</body>
+</html>
